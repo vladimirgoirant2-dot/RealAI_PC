@@ -34,12 +34,6 @@ namespace Real_AI
             {
                 SetColors();
 
-                if (MainForm.network == null)
-                {
-                    MainForm.network = new Thread(NetUtil.Update);
-                    MainForm.network.Start();
-                }
-
                 IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
                 foreach (IPAddress ip in host.AddressList)
                 {
@@ -105,29 +99,38 @@ namespace Real_AI
         {
             try
             {
-                if (IP_Box.Text != "localhost")
+                if (!string.IsNullOrEmpty(IP_Box.Text))
                 {
-                    NetUtil.ConnectedIP = IP_Box.Text;
+                    if (IP_Box.Text != "localhost")
+                    {
+                        NetUtil.ConnectedIP = IP_Box.Text;
+                    }
+
+                    if (MainForm.network == null)
+                    {
+                        NetUtil.Listener = new TcpListener(IPAddress.Parse(NetUtil.ConnectedIP), NetUtil.Port);
+
+                        if (IP_Box.Text == "localhost")
+                        {
+                            NetUtil.ConnectedIP = IP_Box.Text;
+                        }
+
+                        MainForm.network = new Thread(NetUtil.Update);
+                        MainForm.network.Start();
+
+                        MainForm.input.Enabled = false;
+                        MainForm.enter.Enabled = false;
+                        MainForm.input.Text = "[Connected to " + IP_Box.Text + ":" + NetUtil.Port + "]";
+                        MainForm.menu_Link.Text = "Disconnect Link";
+                        MainForm.Linked = true;
+                        MainForm.ListenTimer.Start();
+
+                        NetUtil.Listening = true;
+                        NetUtil.Start();
+
+                        Close();
+                    }
                 }
-
-                NetUtil.Listener = new TcpListener(IPAddress.Parse(NetUtil.ConnectedIP), NetUtil.Port);
-
-                if (IP_Box.Text == "localhost")
-                {
-                    NetUtil.ConnectedIP = IP_Box.Text;
-                }
-
-                NetUtil.Listening = true;
-                NetUtil.Start();
-
-                MainForm.input.Enabled = false;
-                MainForm.enter.Enabled = false;
-                MainForm.input.Text = "[Connected to " + IP_Box.Text + ":" + NetUtil.Port + "]";
-                MainForm.menu_Link.Text = "Disconnect Link";
-                MainForm.Linked = true;
-                MainForm.ListenTimer.Start();
-
-                Close();
             }
             catch (Exception ex)
             {

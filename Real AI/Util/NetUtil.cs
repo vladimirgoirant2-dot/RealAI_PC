@@ -114,6 +114,8 @@ namespace Real_AI.Util
                     }
                 }
             }
+
+            MainForm.network = null;
         }
 
         public static string Get_CurrentMessage()

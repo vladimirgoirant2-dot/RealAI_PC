@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Speech.Synthesis;
 using System.Threading;
 using System.Windows.Forms;
@@ -45,6 +44,7 @@ namespace Real_AI
                 chk_InputResponding.Checked = MainForm.InputResponding;
                 chk_TopicResponding.Checked = MainForm.TopicResponding;
                 chk_ProceduralResponding.Checked = MainForm.ProceduralResponding;
+                chk_LearnFromLink.Checked = MainForm.LearnFromLink;
 
                 chk_TTS.Checked = MainForm.tts;
                 Voices.SelectedText = MainForm.tts_voice;
@@ -259,14 +259,15 @@ namespace Real_AI
         {
             try
             {
+                int max = ThinkSpeed_Bar.Maximum;
                 Point location = ThinkSpeed_Bar.PointToScreen(Point.Empty);
                 int position = Cursor.Position.X - location.X;
                 int percent = (position * 100) / ThinkSpeed_Bar.Width;
 
-                int value = ((percent * 1000) / 100);
-                if (value > 1000)
+                int value = ((percent * max) / 100);
+                if (value > max)
                 {
-                    value = 1000;
+                    value = max;
                 }
                 else if (value < 100)
                 {
@@ -313,14 +314,15 @@ namespace Real_AI
         {
             try
             {
+                int max = Attention_Bar.Maximum;
                 Point location = Attention_Bar.PointToScreen(Point.Empty);
                 int position = Cursor.Position.X - location.X;
                 int percent = (position * 100) / Attention_Bar.Width;
 
-                int value = ((percent * 10) / 100) + 1;
-                if (value > 10)
+                int value = ((percent * max) / 100) + 1;
+                if (value > max)
                 {
-                    value = 10;
+                    value = max;
                 }
                 else if (value < 1)
                 {
@@ -444,6 +446,19 @@ namespace Real_AI
             catch (Exception ex)
             {
                 Logger.AddLog("Options.Chk_ProceduralResponding_CheckedChanged", ex.Source, ex.Message, ex.StackTrace);
+            }
+        }
+
+        private void Chk_LearnFromLink_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                MainForm.LearnFromLink = chk_LearnFromLink.Checked;
+                AppUtil.Set_Config("LearnFromLink", MainForm.LearnFromLink.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.AddLog("Options.Chk_LearnFromLink_CheckedChanged", ex.Source, ex.Message, ex.StackTrace);
             }
         }
 

@@ -176,7 +176,8 @@ namespace Real_AI
                 CleanInput = RulesCheck(Input);
                 WordArray = GapSpecials(CleanInput, MainForm.progressMain, MainForm.progressDetail, null, true).Trim(' ').Split(' ');
 
-                if (WordArray.Length > 0)
+                if (WordArray.Length > 0 &&
+                    (!MainForm.Linked || MainForm.LearnFromLink))
                 {
                     AppUtil.UpdateProgress(MainForm.progressMain, "Saving data");
 
@@ -550,7 +551,8 @@ namespace Real_AI
                         MainForm.intervals.Clear();
 
                         //Add input as output to last response
-                        if (!string.IsNullOrEmpty(LastResponse))
+                        if (!string.IsNullOrEmpty(LastResponse) &&
+                            (!MainForm.Linked || MainForm.LearnFromLink))
                         {
                             AppUtil.UpdateProgress(MainForm.progressMain, "Adding input as output...");
 
@@ -567,7 +569,8 @@ namespace Real_AI
                         AppUtil.UpdateProgress(MainForm.progressMain, 30);
                         MainForm.intervals.Clear();
 
-                        if (Topics.Length > 0)
+                        if (Topics.Length > 0 &&
+                            (!MainForm.Linked || MainForm.LearnFromLink))
                         {
                             AppUtil.UpdateProgress(MainForm.progressMain, "Adding new topic(s)...");
 

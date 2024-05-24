@@ -44,6 +44,7 @@
             this.chk_TTS = new System.Windows.Forms.CheckBox();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chk_LearnFromLink = new System.Windows.Forms.CheckBox();
             this.chk_ProceduralResponding = new System.Windows.Forms.CheckBox();
             this.chk_TopicResponding = new System.Windows.Forms.CheckBox();
             this.chk_InputResponding = new System.Windows.Forms.CheckBox();
@@ -161,7 +162,7 @@
             // Attention_Bar
             // 
             this.Attention_Bar.Location = new System.Drawing.Point(9, 136);
-            this.Attention_Bar.Maximum = 10;
+            this.Attention_Bar.Maximum = 60;
             this.Attention_Bar.Name = "Attention_Bar";
             this.Attention_Bar.Size = new System.Drawing.Size(305, 23);
             this.Attention_Bar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -250,6 +251,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chk_LearnFromLink);
             this.tabPage1.Controls.Add(this.chk_ProceduralResponding);
             this.tabPage1.Controls.Add(this.chk_TopicResponding);
             this.tabPage1.Controls.Add(this.chk_InputResponding);
@@ -272,6 +274,21 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chk_LearnFromLink
+            // 
+            this.chk_LearnFromLink.AutoSize = true;
+            this.chk_LearnFromLink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chk_LearnFromLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_LearnFromLink.Location = new System.Drawing.Point(9, 380);
+            this.chk_LearnFromLink.Name = "chk_LearnFromLink";
+            this.chk_LearnFromLink.Size = new System.Drawing.Size(127, 21);
+            this.chk_LearnFromLink.TabIndex = 23;
+            this.chk_LearnFromLink.Text = "Learn From Link";
+            this.toolTip.SetToolTip(this.chk_LearnFromLink, "Enabling this option will make the AI learn from whatever other Real AI it\'s link" +
+        "ed to.");
+            this.chk_LearnFromLink.UseVisualStyleBackColor = true;
+            this.chk_LearnFromLink.CheckedChanged += new System.EventHandler(this.Chk_LearnFromLink_CheckedChanged);
             // 
             // chk_ProceduralResponding
             // 
@@ -615,5 +632,6 @@
         private System.Windows.Forms.CheckBox chk_InputResponding;
         private System.Windows.Forms.Button btn_ExportTheme;
         private System.Windows.Forms.Button btn_ImportTheme;
+        private System.Windows.Forms.CheckBox chk_LearnFromLink;
     }
 }

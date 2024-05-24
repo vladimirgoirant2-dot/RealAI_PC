@@ -32,6 +32,7 @@ namespace Real_AI
 
         public static string ID;
         public static bool Linked;
+        public static bool LearnFromLink = false;
         public static Thread network;
         public static string LocalLinkDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RealAI");
 
@@ -194,6 +195,7 @@ namespace Real_AI
                         "InputResponding=True",
                         "TopicResponding=True",
                         "ProceduralResponding=True",
+                        "LearnFromLink=False",
                         "Colors=" + Colors
                     };
 
@@ -251,6 +253,11 @@ namespace Real_AI
                     if (string.IsNullOrEmpty(AppUtil.Get_Config("ProceduralResponding")))
                     {
                         AppUtil.Set_Config("ProceduralResponding", "True");
+                    }
+
+                    if (string.IsNullOrEmpty(AppUtil.Get_Config("LearnFromLink")))
+                    {
+                        AppUtil.Set_Config("LearnFromLink", "False");
                     }
 
                     if (string.IsNullOrEmpty(AppUtil.Get_Config("Colors")))
@@ -1512,7 +1519,7 @@ namespace Real_AI
                     NetUtil.Listening)
                 {
                     NetUtil.Stop();
-                    network.Abort();
+
                     ListenTimer.Stop();
 
                     Link.Text = "Establish Link";
