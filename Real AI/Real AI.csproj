@@ -66,8 +66,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
-      <HintPath>bin\Debug\Libs\System.Data.SQLite.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119\lib\net46\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System.Speech" />
@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="alien.ico" />
@@ -188,4 +189,5 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.119\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>

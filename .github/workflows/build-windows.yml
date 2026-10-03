@@ -1,0 +1,32 @@
+name: Build Windows app
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build and package x64 app
+        shell: powershell
+        run: .\scripts\Build-Windows.ps1
+
+      - name: Publish downloadable ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: RealAI-PC-win-x64
+          path: artifacts/RealAI-PC-win-x64.zip
+          if-no-files-found: error
+          retention-days: 30
